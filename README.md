@@ -103,3 +103,69 @@ break;
 }
 }
 }
+
+
+
+OUTPUT:
+1.Creation of Binary Search Tree
+2.Inorder
+3.Preorder
+4.Postorder
+5.Search
+6.Exit
+Enter your choice: 1
+Enter N value: 12
+Enter the values to create BST like(6,9,5,2,8,15,24,14,7,8,5,2)
+6 9 5 2 8 15 24 14 7 8 5 2
+1.Creation of Binary Search Tree
+2.Inorder
+3.Preorder
+4.Postorder
+5.Search
+6.Exit
+Enter your choice: 2
+Inorder Traversal:
+2 5 6 7 8 9 14 15 24
+1.Creation of Binary Search Tree
+2.Inorder
+3.Preorder
+4.Postorder
+5.Search
+6.Exit
+Enter your choice: 3
+Preorder Traversal:
+6 5 2 9 8 7 15 14 24
+1.Creation of Binary Search Tree
+2.Inorder
+3.Preorder
+4.Postorder
+5.Search
+6.Exit
+Enter your choice: 4
+Postorder Traversal:
+2 5 7 8 14 24 15 9 6
+1.Creation of Binary Search Tree
+2.Inorder
+3.Preorder
+4.Postorder
+5.Search
+6.Exit
+Enter your choice: 5
+Enter the element to Search: 8
+Element found is: 8
+1.Creation of Binary Search Tree
+2.Inorder
+3.Preorder
+4.Postorder
+5.Search
+6.Exit
+Enter your choice: 5
+Enter the element to Search: 10
+Element not found
+1.Creation of Binary Search Tree
+2.Inorder
+3.Preorder
+4.Postorder
+5.Search
+6.Exit
+Enter your choice: 6
