@@ -1,157 +1,105 @@
 # 10th
 #include <stdio.h>
 #include <stdlib.h>
-int flag=0;
-typedef struct BST
+struct BST
 {
 int data;
-struct BST *lchild,*rchild;
-} node;
-/FUNCTION PROTOTYPE/
-void insert(node *, node *);
-void inorder(node *);
-void preorder(node *);
-void postorder(node *);
-node search(node *, int, node *);
-void main()
+struct BST *left;
+struct BST *right;
+};
+typedef struct BST NODE;
+NODE* createtree(NODE *root, int data)
 {
-int choice;
-int ans =1;
-int key;
- node *new_node, *root, *tmp, *parent;
- node *get_node();
- root = NULL;
- printf("\nProgram For Binary Search Tree ");
-do
- {
- printf("\n1.Create");
- printf("\n2.Search");
- printf("\n3.Recursive Traversals");
- printf("\n4.Exit");
- printf("\nEnter your choice :");
- scanf("%d", &choice);
- switch (choice)
- {
- case 1:
- do
- {
- new_node = get_node();
- printf("\nEnter The Element ");
- scanf("%d", &new_node->data); 
-if (root == NULL) /* Tree is not Created */
- root = new_node;
- else
- insert(root, new_node);
- printf("\nWant To enter More Elements?(1/0)");
- scanf("%d",&ans);
- } while (ans);
- break;
- case 2:
- printf("\nEnter Element to be searched :");
- scanf("%d", &key);
- tmp = search(root, key, &parent);
- if(flag==1)
- {
- printf("\nParent of node %d is %d", tmp->data, parent->data);
- }
- else
- {
- printf("\n The %d Element is not Present",key);
- }
- flag=0;
- break;
- case 3:
- if (root == NULL)
- printf("Tree Is Not Created");
- else
- {
- printf("\nThe Inorder display :");
- inorder(root);
- printf("\nThe Preorder display : ");
- preorder(root);
- printf("\nThe Postorder display : ");
- postorder(root);
- }
- break;
- }
- }
- while (choice != 4);
- }
-/*Get new Node */
-node *get_node()
+if (root == NULL)
 {
- node *temp; 
-temp = (node *) malloc(sizeof(node));
- temp->lchild = NULL;
- temp->rchild = NULL;
+NODE *temp;
+temp = (NODE*) malloc (sizeof(NODE));
+temp->data = data;
+temp->left = temp->right = NULL;
 return temp;
 }
-/*This function is for creating a binary search tree */
-void insert(node *root, node *new_node)
-{
-if (new_node->data < root->data)
- {
- if(root->lchild==NULL)
- root->lchild=new_node;
- else
- insert(root->lchild, new_node);
- }
-if (new_node->data > root->data)
- {
- if (root->rchild == NULL)
- root->rchild = new_node;
- else
- insert(root->rchild, new_node);
- }
+if (data < (root->data))
+root->left = createtree(root->left, data);
+else if (data > root->data)
+root -> right = createtree(root->right, data);
+return root;
 }
-/This function is for searching the node from binary Search Tree/
-node *search(node *root, int key, node **parent)
+void inorder(NODE *root)
 {
- node *temp;
- temp = root;
-while (temp != NULL)
- {
- if (temp->data == key)
- {
- printf("\nThe %d Element is Present", temp->data);
- flag=1;
- return temp;
- }
- *parent = temp;
- if (temp->data > key)
- temp = temp->lchild;
- else
- temp = temp->rchild;
- } 
-return NULL;
+if(root != NULL)
+{
+inorder(root->left);
+printf("%d\t", root->data);
+inorder(root->right);
 }
-/*This function displays the tree in inorder fashion */
-void inorder(node *temp)
-{
-if (temp != NULL)
- {
- inorder(temp->lchild);
- printf("%d\t", temp->data);
- inorder(temp->rchild);
- }
 }
-/*This function displays the tree in preorder fashion */
-void preorder(node *temp)
+void preorder(NODE *root)
 {
-if (temp != NULL)
- {
- printf("%d\t", temp->data);
- preorder(temp->lchild);
- preorder(temp->rchild);
- }
+if(root != NULL)
+{
+printf("%d\t", root->data);
+preorder(root->left);
+preorder(root->right);
 }
-/*This function displays the tree in postorder fashion */
-void postorder(node *temp)
+}
+void postorder(NODE *root)
 {
-if (temp != NULL)
- {
- postorder(temp->lchild);
- postorder(temp->rchild);
- printf("%d\t", temp->data);
- }
+if(root != NULL)
+{
+postorder(root->left);
+postorder(root->right);
+printf("%d\t", root->data);
+}
+}
+NODE *search(NODE *root, int data)
+{
+if(root == NULL)
+printf("\nElement not found");
+else if(data < root->data)
+root->left = search(root->left, data);
+else if(data > root->data)
+root->right = search(root->right, data);
+else
+printf("\nElement found is: %d", root->data);
+return root;
+}
+void main()
+{
+int data, ch, i, n;
+NODE *root = NULL;
+while (1)
+{
+printf("\n1.Creation of Binary Search Tree");
+printf("\n2.Inorder\n3.Preorder\n4.Postorder\n5.Search\n6.Exit");
+printf("\nEnter your choice: ");
+scanf("%d", &ch);
+switch (ch)
+{
+case 1: printf("\nEnter N value: " );
+scanf("%d", &n);
+printf("\nEnter the values to create BST like(6,9,5,2,8,15,24,14,7,8,5,2)\n");
+for(i=0; i<n; i++)
+{
+    scanf("%d", &data);
+root = createtree(root, data);
+}
+break;
+case 2: printf("\nInorder Traversal: \n");
+inorder(root);
+break;
+case 3: printf("\nPreorder Traversal: \n");
+preorder(root);
+break;
+case 4: printf("\nPostorder Traversal: \n");
+postorder(root);
+break;
+case 5: printf("\nEnter the element to Search: ");
+scanf("%d", &data);
+root=search(root, data);
+break;
+case 6: exit(0);
+default: printf("\nWrong Option");
+break;
+}
+}
 }
